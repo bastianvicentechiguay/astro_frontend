@@ -1,0 +1,102 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { fetchFromAPI, STRAPI_URL_IMAGES } from "../../lib/conection";
+import { blocksToHtml } from "../../lib/lista.js";
+
+interface Musica {
+    id: number;
+    Titulo: string;
+    slug: string;
+    artist: string;
+    resumen: string;
+    autor: string;
+    fecha_publicacion: string;
+    portada?: {
+        url: string;
+        alternativeText?: string;
+    };
+    contenido?: string;
+}
+
+export async function getStaticPaths() {
+    const data = await fetchFromAPI("musicas");
+    const musicas: Musica[] = data || [];
+
+    return musicas.map((musica: Musica) => ({
+        params: { slug: musica.slug },
+        props: { musica },
+    }));
+}
+
+const { musica } = Astro.props;
+---
+
+<Layout>
+    <div class="bg-[#FFFDE7] min-h-screen p-4 md:p-8 font-sans">
+        <article
+            class="bg-white rounded-[2.5rem] w-full max-w-[1200px] mx-auto p-8 md:p-12 shadow-sm"
+        >
+            <div class="mb-8">
+                <div
+                    class="flex items-baseline gap-3 mb-4 border-b border-transparent"
+                >
+                    <span
+                        class="text-sm font-medium text-gray-500 uppercase tracking-wide"
+                        >Musica</span
+                    >
+                </div>
+                <h1 class="text-4xl md:text-5xl font-bold mb-4">
+                    {musica.Titulo}
+                </h1>
+                <div class="flex flex-wrap gap-4 text-sm text-gray-600">
+                    <span><strong>Artista:</strong> {musica.artist}</span>
+                    <span><strong>Autor:</strong> {musica.autor}</span>
+                    <span
+                        ><strong>Fecha:</strong>
+                        {
+                            new Date(
+                                musica.fecha_publicacion,
+                            ).toLocaleDateString("es-ES")
+                        }</span
+                    >
+                </div>
+            </div>
+
+            {
+                musica.portada && (
+                    <div class="mb-8 rounded-2xl overflow-hidden">
+                        <img
+                            src={`${STRAPI_URL_IMAGES}${musica.portada.url}`}
+                            alt={
+                                musica.portada.alternativeText ||
+                                musica.Titulo
+                            }
+                            class="w-full h-auto object-cover"
+                        />
+                    </div>
+                )
+            }
+            <div class="mb-8">
+                <p class="text-2xl text-gray-700 leading-relaxed">
+                    {musica.resumen}
+                </p>
+            </div>
+
+            {
+                musica.contenido && (
+                    <div class="prose prose-lg prose-slate max-w-none">
+                        <div set:html={blocksToHtml(musica.contenido)} />
+                    </div>
+                )
+            }
+            <div class="mt-12 pt-8 border-t border-gray-200">
+                <a
+                    href="/Musica"
+                    class="inline-flex items-center gap-2 text-blue-600 hover:text-blue-800 font-medium transition-colors"
+                >
+                    ← Volver a Musica
+                </a>
+            </div>
+        </article>
+    </div>
+</Layout>

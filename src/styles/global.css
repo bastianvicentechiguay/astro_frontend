@@ -1,0 +1,12 @@
+@import "tailwindcss";
+
+
+@layer components {
+    .tituloSeccion {
+        @apply text-5xl md:text-7xl font-black tracking-tighter text-black uppercase mb-10;
+    }
+
+    .listaArticulos {
+        @apply flex flex-col w-full;
+    }
+}

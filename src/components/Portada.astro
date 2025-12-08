@@ -1,0 +1,56 @@
+---
+import { Image } from "astro:assets";
+import { fetchFromAPI, STRAPI_BASE_URL } from "../lib/conection";
+
+
+const data = await fetchFromAPI('home');
+
+
+// --- CORRECCIÓN BASADA EN TU JSON ---
+// Tu JSON muestra que 'slider' es un objeto directo { id, url, ... }
+// NO es un array, por lo tanto NO usamos [0]
+const sliderImage = data?.slider;
+
+
+let imageUrl = null;
+
+
+// Verificamos que exista el objeto slider y que tenga url
+if (sliderImage && sliderImage.url) {
+   imageUrl = `${STRAPI_BASE_URL}${sliderImage.url}`;
+}
+
+
+console.log("URL Final para Astro:", imageUrl);
+---
+
+
+<section class="mt-[-90px] z-10 relative">
+   <div class="w-full h-screen bg-gray-900">
+       {/* Renderizado seguro: Solo si tenemos URL válida */}
+       {imageUrl ? (
+               <Image
+                       src={imageUrl}
+                       alt='Portada'
+                       class="w-full h-full object-cover"
+                       inferSize={true}
+               />
+       ) : (
+               <div class="w-full h-full flex items-center justify-center text-white">
+                   <p>No se pudo cargar la imagen (Revisa la consola)</p>
+               </div>
+       )}
+   </div>
+
+
+   <div class="z-20 absolute items-center justify-center inset-0 flex">
+       <div class="container mx-auto">
+           <h1 class="text-white font-sans text-[72px] uppercase text-center ">
+               {data?.title}
+           </h1>
+           <h4 class="text-white font-sans text-center text-[2rem] font-light">
+               {data?.subtitle}
+           </h4>
+       </div>
+   </div>
+</section>
