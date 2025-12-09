@@ -1,0 +1,48 @@
+---
+import { fetchFromAPI } from "../lib/conection";
+interface Menu {
+    label: string;
+    url: string;
+}
+let menu: Menu[] = [];
+try {
+    const response = await fetchFromAPI('navmenus');   
+    menu = Array.isArray(response) ? response : (response?.data || []);
+} catch (e) {
+    console.error("Error cargando footer menu");
+}
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="bg-black text-white py-12 border-t border-neutral-900 mt-auto">
+    <div class="container mx-auto px-4 flex flex-col items-center">
+        <a href="/" class="text-2xl font-bold uppercase tracking-[0.25em] mb-8 hover:opacity-80 transition-opacity">
+            Starless
+        </a>
+        <nav class="mb-8">
+            <ul class="flex flex-wrap justify-center gap-6 md:gap-10">
+                {menu.map((item) => (
+                        <li>
+                            <a
+                                    href={item.url}
+                                    class="text-xs font-medium uppercase tracking-widest text-neutral-400 hover:text-white transition-colors"
+                            >
+                                {item.label}
+                            </a>
+                        </li>
+                ))}
+            </ul>
+        </nav>
+
+        
+        <div class="flex gap-6 mb-6">
+
+            
+            <a href="#" aria-label="Twitter" class="text-neutral-500 hover:text-white transition-colors">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
+            </a>
+        </div>
+
+
+    </div>
+</footer>

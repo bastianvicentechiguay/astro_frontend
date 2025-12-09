@@ -3,6 +3,7 @@ import Layout from "../layouts/Layout.astro";
 import { fetchFromAPI } from "../lib/conection";
 import Carta from "../components/Carta.astro";
 import Suscripcion from "../components/Suscripcion.astro";
+import CartaLado from "../components/CartaLado.astro";
 
 interface Noticia {
      Titulo: string;
@@ -19,9 +20,9 @@ console.log(noticiasData);
 ---
 
 <Layout>
-     <div class="bg-[#FFFDE7] min-h-screen p-4 md:p-8 font-sans">
+     <div class="bg-teal-300 min-h-screen p-4 md:p-8 font-sans">
           <main
-               class="bg-white rounded-[2.5rem] w-full max-w-[1200px] mx-auto p-6 md:p-12 shadow-sm"
+               class="bg-white rounded-[2.5rem] w-full max-w-[1200px] mx-auto p-6 md:p-12 shadow-sm mb-12"
           >
                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
                     <div class="lg:col-span-8 flex flex-col gap-8">
@@ -46,22 +47,32 @@ console.log(noticiasData);
                          </div>
                     </div>
 
-                    <aside class="lg:col-span-4 flex flex-col gap-10">
-                         <div
-                              class="bg-black bg-[radial-gradient(circle_at_top_right,_#a855f7_0%,_transparent_35%)] text-white p-8 rounded-2xl flex flex-col justify-end min-h-[300px]"
-                         >
-                              <h2
-                                   class="text-5xl font-extrabold uppercase italic tracking-tighter text-[#A5B4FC] mb-2 leading-none"
-                              >
-                                   ejemplo
-                              </h2>
-                              <p class="font-bold text-lg leading-tight">
-                                   ejemplo de texto
-                              </p>
-                         </div>
-                    </aside>
+                    <div class="lg:col-span-4 flex flex-col gap-10">
+                         <CartaLado
+                              titulo="Nosotros"
+                              descripcion="aqui encontraras todo lo que necesitas"
+                              textoBoton="Ver Nosotros"
+                              enlace="/Nosotros"
+                         />
+                         <CartaLado
+                              titulo="Música"
+                              descripcion="aqui encontraras articulos sobre el mundo de la música"
+                              textoBoton="Ver Música"
+                              enlace="/Musica"
+                         />
+                         <CartaLado
+                              titulo="Cine"
+                              descripcion="aqui encontraras articulos sobre el mundo del cine"
+                              textoBoton="Ver Cine"
+                              enlace="/Cine"
+                         />
+                    </div>
                </div>
           </main>
-          <Suscripcion />
+          <Suscripcion
+               textClass="text-teal-300"
+               bgClass="bg-slate-900"
+               borderClass="border-teal-300 hover:bg-teal-300 hover:text-slate-900"
+          />
      </div>
 </Layout>
