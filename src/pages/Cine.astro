@@ -16,21 +16,16 @@ interface Cine {
 
 const cineData = (await fetchFromAPI("cines")) || [];
 ---
-
 <Layout>
      <div class="bg-emerald-300 min-h-screen p-4 md:p-8 font-sans">
-          <main
-               class="bg-white rounded-[2.5rem] w-full max-w-[1200px] mx-auto p-6 md:p-12 shadow-sm mb-12"
-          >
-               <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+          <main class="bg-white rounded-[2.5rem] w-full max-w-[1200px] mx-auto p-6 md:p-12 shadow-sm mb-12"  >
+           <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
                     <div class="lg:col-span-8 flex flex-col gap-8">
-                         <div
-                              class="flex items-baseline gap-3 border-b border-transparent"
-                         >
+                         <div class="flex items-baseline gap-3 border-b border-transparent"  >
                               <h1 class="text-3xl font-bold mb-4">Cine</h1>
                          </div>
 
-                         <div class="flex flex-col gap-8">
+                      <div class="flex flex-col gap-8">
                               {
                                    cineData.map((cine: Cine) => (
                                         <Carta
@@ -38,8 +33,7 @@ const cineData = (await fetchFromAPI("cines")) || [];
                                              titulo={cine.Titulo}
                                              resumen={cine.resumen}
                                              portada={cine.portada}
-                                             slug={cine.slug}
-                                        />
+                                             slug={cine.slug}        />
                                    ))
                               }
                          </div>
@@ -50,27 +44,23 @@ const cineData = (await fetchFromAPI("cines")) || [];
                               titulo="Nosotros"
                               descripcion="aqui encontraras todo lo que necesitas"
                               textoBoton="Ver Nosotros"
-                              enlace="/Nosotros"
-                         />
+                              enlace="/Nosotros"  />
                          <CartaLado
                               titulo="Noticias"
                               descripcion="aqui encontraras noticias del mundo del arte"
                               textoBoton="Ver Noticias"
-                              enlace="/Noticias"
-                         />
+                              enlace="/Noticias"  />
                          <CartaLado
                               titulo="Música"
                               descripcion="aqui encontraras articulos sobre el mundo de la música"
                               textoBoton="Ver Música"
-                              enlace="/Musica"
-                         />
+                              enlace="/Musica"  />
                     </div>
                </div>
           </main>
           <Suscripcion
                textClass="text-emerald-300"
                bgClass="bg-slate-900"
-               borderClass="border-emerald-300 hover:bg-emerald-300 hover:text-slate-900"
-          />
+               borderClass="border-emerald-300 hover:bg-emerald-300 hover:text-slate-900"  />
      </div>
 </Layout>

@@ -1,7 +1,7 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import { fetchFromAPI, STRAPI_URL_IMAGES } from "../../lib/conection";
-import { blocksToHtml } from "../../lib/lista.js";
+import { TransformarHTML } from "../../lib/lista.js";
 
 interface Musica {
     id: number;
@@ -34,19 +34,12 @@ export async function getStaticPaths() {
 
 const { musica, relacionadosMusicas } = Astro.props;
 ---
-
 <Layout>
-    <div class="bg-amber-300 min-h-screen p-4 md:p-8 font-sans">
-        <article
-            class="bg-white rounded-[2.5rem] w-full max-w-[1200px] mx-auto p-8 md:p-12 shadow-sm"
-        >
+ <div class="bg-amber-300 min-h-screen p-4 md:p-8 font-sans">
+     <article class="bg-white rounded-[2.5rem] w-full max-w-[1200px] mx-auto p-8 md:p-12 shadow-sm"  >
             <div class="mb-8">
-                <div
-                    class="flex items-baseline gap-3 mb-4 border-b border-transparent"
-                >
-                    <span
-                        class="text-sm font-medium text-gray-500 uppercase tracking-wide"
-                        >Musica</span
+                <div class="flex items-baseline gap-3 mb-4 border-b border-transparent" >
+                    <span class="text-sm font-medium text-gray-500 uppercase tracking-wide"  >Musica</span
                     >
                 </div>
                 <h1 class="text-4xl md:text-5xl font-bold mb-4">
@@ -54,14 +47,12 @@ const { musica, relacionadosMusicas } = Astro.props;
                 </h1>
                 <div class="flex flex-wrap gap-4 text-sm text-gray-600">
                     <span><strong>Autor:</strong> {musica.autor}</span>
-                    <span
-                        ><strong>Fecha:</strong>
+                    <span><strong>Fecha:</strong>
                         {
                             new Date(
                                 musica.fecha_publicacion,
                             ).toLocaleDateString("es-ES")
-                        }</span
-                    >
+                        }</span>
                 </div>
             </div>
 
@@ -87,13 +78,12 @@ const { musica, relacionadosMusicas } = Astro.props;
             {
                 musica.contenido && (
                     <div class="prose prose-lg prose-slate max-w-none text-2xl">
-                        <div set:html={blocksToHtml(musica.contenido)} />
+                        <div set:html={TransformarHTML(musica.contenido)} />
                     </div>
                 )
             }
             <div class="mt-12 pt-8 border-t border-gray-200">
-                <a
-                    href="/Musica"
+                <a href="/Musica"
                     class="inline-flex items-center gap-2 text-blue-600 hover:text-blue-800 font-medium transition-colors"
                 >
                     ← Volver a Musica
@@ -109,10 +99,7 @@ const { musica, relacionadosMusicas } = Astro.props;
 
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                             {relacionadosMusicas.map((item) => (
-                                <a
-                                    href={`/Musica/${item.slug}`}
-                                    class="group block"
-                                >
+                                <a href={`/Musica/${item.slug}`} class="group block"  >
                                     <article class="flex flex-col gap-4">
                                         {/* Imagen de la tarjeta */}
                                         <div class="relative overflow-hidden rounded-xl aspect-[4/3] bg-gray-100">

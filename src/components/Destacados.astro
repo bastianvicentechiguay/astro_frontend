@@ -1,0 +1,96 @@
+---
+import { fetchFromAPI, STRAPI_URL_IMAGES } from "../lib/conection";
+
+// 1. Cargar datos de cada coleccion por separado
+const cines = (await fetchFromAPI("cines")) || [];
+const musicas = (await fetchFromAPI("musicas")) || [];
+const noticias = (await fetchFromAPI("noticias")) || [];
+
+// 2. Crear una sola lista agregando la categoria y url manualmente
+const todos = [
+    ...cines.map((item: any) => ({
+        ...item,
+        category: "Cine",
+        url: `/Cine/${item.slug}`,
+    })),
+    ...musicas.map((item: any) => ({
+        ...item,
+        category: "Música",
+        url: `/Musica/${item.slug}`,
+    })),
+    ...noticias.map((item: any) => ({
+        ...item,
+        category: "Noticias",
+        url: `/Noticias/${item.slug}`,
+    })),
+];
+
+// 3. Elegir uno al azar
+const featured: any =
+    todos.length > 0 ? todos[Math.floor(Math.random() * todos.length)] : null;
+
+if (!featured) return null;
+---
+
+<section class="py-12 bg-white">
+    <div class="container mx-auto px-6 md:px-12">
+        {/* Titulo de la seccion */}
+        <div class="mb-6 border-b border-black pb-2">
+            <span
+                class="text-xs font-bold uppercase tracking-widest text-black"
+            >
+                Destacado del día
+            </span>
+        </div>
+
+        {/* Tarjeta */}
+        <a
+            href={featured.url}
+            class="block bg-neutral-50 border border-neutral-200"
+        >
+            <div class="flex flex-col md:flex-row h-auto md:h-64">
+                {/* Imagen */}
+                <div class="w-full md:w-1/3 h-64 md:h-full relative">
+                    {
+                        featured.portada ? (
+                            <img
+                                src={`${STRAPI_URL_IMAGES}${featured.portada.url}`}
+                                alt={featured.Titulo}
+                                class="w-full h-full object-cover"
+                            />
+                        ) : (
+                            <div class="w-full h-full bg-neutral-200" />
+                        )
+                    }
+                </div>
+
+                {/* Texto */}
+                <div
+                    class="w-full md:w-2/3 p-8 md:p-12 flex flex-col justify-center items-start"
+                >
+                    <span
+                        class="bg-black text-white text-[10px] font-bold uppercase tracking-widest px-2 py-1 mb-4"
+                    >
+                        {featured.category}
+                    </span>
+
+                    <h2
+                        class="text-2xl md:text-4xl font-bold uppercase leading-tight mb-2 text-black"
+                    >
+                        {featured.Titulo}
+                    </h2>
+
+                    <div
+                        class="text-xs font-bold text-neutral-400 uppercase tracking-widest"
+                    >
+                        {
+                            new Date(
+                                featured.fecha_publicacion,
+                            ).toLocaleDateString("es-ES")
+                        }
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+</section>

@@ -17,17 +17,12 @@ interface Musica {
 
 const musicaData = (await fetchFromAPI("musicas")) || [];
 ---
-
 <Layout>
      <div class="bg-amber-300 min-h-screen p-4 md:p-8 font-sans">
-          <main
-               class="bg-white rounded-[2.5rem] w-full max-w-[1200px] mx-auto p-6 md:p-12 shadow-sm mb-12"
-          >
+          <main class="bg-white rounded-[2.5rem] w-full max-w-[1200px] mx-auto p-6 md:p-12 shadow-sm mb-12" >
                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
                     <div class="lg:col-span-8 flex flex-col gap-8">
-                         <div
-                              class="flex items-baseline gap-3 border-b border-transparent"
-                         >
+                         <div class="flex items-baseline gap-3 border-b border-transparent"  >
                               <h1 class="text-3xl font-bold mb-4">Música</h1>
                          </div>
 
@@ -51,20 +46,17 @@ const musicaData = (await fetchFromAPI("musicas")) || [];
                               titulo="Nosotros"
                               descripcion="aqui encontraras todo lo que necesitas"
                               textoBoton="Ver Nosotros"
-                              enlace="/Nosotros"
-                         />
+                              enlace="/Nosotros" />
                          <CartaLado
                               titulo="Noticias"
                               descripcion="aqui encontraras noticias del mundo del arte"
                               textoBoton="Ver Noticias"
-                              enlace="/Noticias"
-                         />
+                              enlace="/Noticias"  />
                          <CartaLado
                               titulo="Cine"
                               descripcion="aqui encontraras articulos sobre el mundo del cine"
                               textoBoton="Ver Cine"
-                              enlace="/Cine"
-                         />
+                              enlace="/Cine"  />
                     </div>
                </div>
           </main>
@@ -72,7 +64,6 @@ const musicaData = (await fetchFromAPI("musicas")) || [];
           <Suscripcion
                textClass="text-amber-300"
                bgClass="bg-slate-900"
-               borderClass="border-amber-300 hover:bg-amber-300 hover:text-slate-900"
-          />
+               borderClass="border-amber-300 hover:bg-amber-300 hover:text-slate-900"/>
      </div>
 </Layout>

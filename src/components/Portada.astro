@@ -1,56 +1,51 @@
 ---
-import { Image } from "astro:assets";
 import { fetchFromAPI, STRAPI_BASE_URL } from "../lib/conection";
 
-
-const data = await fetchFromAPI('home');
-
-
-// --- CORRECCIÓN BASADA EN TU JSON ---
-// Tu JSON muestra que 'slider' es un objeto directo { id, url, ... }
-// NO es un array, por lo tanto NO usamos [0]
+const data = await fetchFromAPI("home");
 const sliderImage = data?.slider;
-
 
 let imageUrl = null;
 
-
-// Verificamos que exista el objeto slider y que tenga url
 if (sliderImage && sliderImage.url) {
-   imageUrl = `${STRAPI_BASE_URL}${sliderImage.url}`;
+    imageUrl = `${STRAPI_BASE_URL}${sliderImage.url}`;
 }
-
-
-console.log("URL Final para Astro:", imageUrl);
 ---
 
+<section class="relative w-full h-screen mt-[-90px] overflow-hidden">
+    <div class="absolute inset-0 w-full h-full">
+        {
+            imageUrl ? (
+                <img
+                    src={imageUrl}
+                    alt="Portada Starless"
+                    class="w-full h-full object-cover"
+                    loading="eager"
+                />
+            ) : (
+                <div class="w-full h-full bg-neutral-900 flex items-center justify-center text-white/50">
+                    Sin imagen
+                </div>
+            )
+        }
+    </div>
 
-<section class="mt-[-90px] z-10 relative">
-   <div class="w-full h-screen bg-gray-900">
-       {/* Renderizado seguro: Solo si tenemos URL válida */}
-       {imageUrl ? (
-               <Image
-                       src={imageUrl}
-                       alt='Portada'
-                       class="w-full h-full object-cover"
-                       inferSize={true}
-               />
-       ) : (
-               <div class="w-full h-full flex items-center justify-center text-white">
-                   <p>No se pudo cargar la imagen (Revisa la consola)</p>
-               </div>
-       )}
-   </div>
+    <div
+        class="relative z-10 flex flex-col items-center justify-center h-full text-center px-4"
+    >
+        <div class="max-w-4xl mx-auto">
+            <h1
+                class="text-white font-sans font-bold uppercase tracking-tighter leading-none mb-4
+                      text-5xl md:text-7xl lg:text-9xl drop-shadow-lg"
+            >
+                {data?.title || "STARLESS"}
+            </h1>
 
-
-   <div class="z-20 absolute items-center justify-center inset-0 flex">
-       <div class="container mx-auto">
-           <h1 class="text-white font-sans text-[72px] uppercase text-center ">
-               {data?.title}
-           </h1>
-           <h4 class="text-white font-sans text-center text-[2rem] font-light">
-               {data?.subtitle}
-           </h4>
-       </div>
-   </div>
+            <h4
+                class="text-white font-sans font-light uppercase tracking-[0.2em]
+                      text-sm md:text-xl lg:text-2xl opacity-90"
+            >
+                {data?.subtitle || "Magazine"}
+            </h4>
+        </div>
+    </div>
 </section>

@@ -21,18 +21,14 @@ console.log(noticiasData);
 
 <Layout>
      <div class="bg-teal-300 min-h-screen p-4 md:p-8 font-sans">
-          <main
-               class="bg-white rounded-[2.5rem] w-full max-w-[1200px] mx-auto p-6 md:p-12 shadow-sm mb-12"
-          >
-               <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+          <main class="bg-white rounded-[2.5rem] w-full max-w-[1200px] mx-auto p-6 md:p-12 shadow-sm mb-12"  >
+           <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
                     <div class="lg:col-span-8 flex flex-col gap-8">
-                         <div
-                              class="flex items-baseline gap-3 border-b border-transparent"
-                         >
+                         <div class="flex items-baseline gap-3 border-b border-transparent"  >
                               <h1 class="text-3xl font-bold mb-4">Noticias</h1>
                          </div>
 
-                         <div class="flex flex-col gap-8">
+                      <div class="flex flex-col gap-8">
                               {
                                    noticiasData.map((noticia: Noticia) => (
                                         <Carta
@@ -52,20 +48,17 @@ console.log(noticiasData);
                               titulo="Nosotros"
                               descripcion="aqui encontraras todo lo que necesitas"
                               textoBoton="Ver Nosotros"
-                              enlace="/Nosotros"
-                         />
+                              enlace="/Nosotros"  />
                          <CartaLado
                               titulo="Música"
                               descripcion="aqui encontraras articulos sobre el mundo de la música"
                               textoBoton="Ver Música"
-                              enlace="/Musica"
-                         />
+                              enlace="/Musica"  />
                          <CartaLado
                               titulo="Cine"
                               descripcion="aqui encontraras articulos sobre el mundo del cine"
                               textoBoton="Ver Cine"
-                              enlace="/Cine"
-                         />
+                              enlace="/Cine"  />
                     </div>
                </div>
           </main>

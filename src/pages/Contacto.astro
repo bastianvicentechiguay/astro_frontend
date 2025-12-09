@@ -1,0 +1,57 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { fetchFromAPI } from "../lib/conection";
+
+interface ContactData {
+    Titulo: string;
+    nombre: string;
+    email: string;
+    mensaje: string;
+    boton: string;
+}
+
+const response = await fetchFromAPI('contact');
+const data = (response?.data || {}) as ContactData;
+
+---
+
+<Layout title="Contacto">
+    <section class="min-h-screen flex items-center justify-center bg-white py-20 font-sans">
+        <div class="container mx-auto px-6 max-w-2xl">
+            <div class="text-center mb-12">
+                <h1 class="text-3xl font-bold uppercase tracking-[0.2em] mb-6 text-black">
+                    {data.Titulo || "CONTACTO"}
+                </h1>
+            </div>
+            <form class="space-y-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <input
+                            type="text"
+                            placeholder={data.nombre || "Nombre"}
+                            class="w-full bg-transparent border-b border-neutral-300 py-3 text-xs uppercase tracking-[0.15em] placeholder-neutral-400 focus:outline-none focus:border-black transition-colors"
+                    />
+                    <input
+                            type="email"
+                            placeholder={data.email || "Email"}
+                            class="w-full bg-transparent border-b border-neutral-300 py-3 text-xs uppercase tracking-[0.15em] placeholder-neutral-400 focus:outline-none focus:border-black transition-colors"
+                    />
+                </div>
+
+                <textarea
+                        rows="4"
+                        placeholder={data.mensaje || "Mensaje"}
+                        class="w-full bg-transparent border-b border-neutral-300 py-3 text-xs uppercase tracking-[0.15em] placeholder-neutral-400 focus:outline-none focus:border-black transition-colors resize-none"
+                ></textarea>
+
+                <div class="text-center mt-12">
+                    <button type="submit" class="group relative inline-block py-2 px-8">
+                        <span class="text-black font-bold uppercase text-xs tracking-[0.25em]">
+                            {data.boton || "ENVIAR"}
+                        </span>
+                        <span class="absolute bottom-0 left-0 w-0 h-[2px] bg-black transition-all duration-300 group-hover:w-full"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+</Layout>
